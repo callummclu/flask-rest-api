@@ -2,7 +2,6 @@ import psycopg2 as db
 from flask import Flask,request
 from flask_sqlalchemy import SQLAlchemy
 
-
 app = Flask(__name__)
 db_sql = SQLAlchemy(app)
 
@@ -14,7 +13,6 @@ class Post(db_sql.Model):
     def __init__(self,title,content):
         self.title = title
         self.content = content
-
 
 def get_db_connection():
     conn = db.connect(
@@ -91,7 +89,6 @@ def updateOne(post_id):
         cur.close()
         conn.close()
         return "Edited post"
-
 
 # Delete one
 @app.route('/<post_id>', methods=['DELETE'])
