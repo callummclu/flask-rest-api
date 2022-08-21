@@ -5,3 +5,25 @@ content-type: application/json
     "title":"Hello",
     "content":"World!"
 }
+
+###
+
+GET http://localhost:5000/
+
+###
+
+GET http://localhost:5000/17
+
+###
+
+PUT http://localhost:5000/17
+content-type: application/json
+
+{
+    "title":"edited",
+    "content":"content!"
+}
+
+###
+
+DELETE http://localhost:5000/
