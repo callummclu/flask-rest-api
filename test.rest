@@ -1,0 +1,7 @@
+POST http://localhost:5000/
+content-type: application/json
+
+{
+    "title":"Hello",
+    "content":"World!"
+}
