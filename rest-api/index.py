@@ -1,6 +1,5 @@
-from json import JSONEncoder
 import psycopg2 as db
-from flask import Flask,request,jsonify
+from flask import Flask,request
 from flask_sqlalchemy import SQLAlchemy
 
 
