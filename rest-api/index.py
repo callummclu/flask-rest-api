@@ -42,7 +42,7 @@ def create():
         conn.commit()
         cur.close()
         conn.close()
-        return "Created"
+        return "Created post"
 
 # Read all
 @app.route('/')
@@ -64,16 +64,43 @@ def getAll():
 def getOne(post_id):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM posts WHERE id = %s", post_id)
-    rows = cur.fetchall()
+    cur.execute("SELECT * FROM posts WHERE id ="+post_id)
+    rows = cur.fetchone()
     cur.close()
     conn.close()
 
-    posts = {}
-    posts["posts"] = rows
+    post = {}
+    post["post"] = rows
 
-    return posts
+    return post
 
 # Update one
+@app.route('/<post_id>', methods=['PUT'])
+def updateOne(post_id):
+
+    postModel = request.json
+    if not postModel:
+        return "no post with id %s" % post_id, 400
+    else:
+        title = postModel['title']
+        content = postModel['content']
+        post = Post(title,content)
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("UPDATE posts SET title = %s, content = %s WHERE id = %s", (title, content, post_id))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return "Edited post"
+
 
 # Delete one
+@app.route('/<post_id>', methods=['DELETE'])
+def deleteOne(post_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM posts WHERE id = "+post_id)
+    conn.commit()
+    cur.close()
+    conn.close()
+    return "Deleted post"
